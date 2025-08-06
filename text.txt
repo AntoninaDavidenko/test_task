@@ -1,3 +1,4 @@
 Square TopRight 1 1 Side 1
 Rectangle TopRight 2 2 BottomLeft 1 1
 Circle Center 1 1 Radius 2
+Triangle Point1 5 5 Point2 8 8 Point3 10 2

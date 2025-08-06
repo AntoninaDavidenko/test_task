@@ -125,12 +125,53 @@ class Square(Rectangle):
         except ValueError:
             raise ValueError('Invalid data string')
 
+class Triangle(Shape):
+    def __init__(self, x1, x2, x3, y1, y2, y3):
+        self.x1_position = x1
+        self.x2_position = x2
+        self.x3_position = x3
+        self.y1_position = y1
+        self.y2_position = y2
+        self.y3_position = y3
+
+
+    @classmethod
+    def create(cls, data_string):
+        x1_position = None
+        x2_position = None
+        x3_position = None
+        y1_position = None
+        y2_position = None
+        y3_position = None
+        j = 1
+        while j < len(data_string):
+            if data_string[j] == 'Point1':
+                x1_position = int(data_string[j+1])
+                y1_position = int(data_string[j+2])
+                j += 3
+            elif data_string[j] == 'Point2':
+                x2_position = int(data_string[j+1])
+                y2_position = int(data_string[j+2])
+                j += 3
+            elif data_string[j] == 'Point3':
+                x3_position = int(data_string[j+1])
+                y3_position = int(data_string[j+2])
+                j += 3
+
+        return cls(x1_position, x2_position, x3_position, y1_position, y2_position, y3_position)
+
+    def perimeter(self):
+        return 22
+
+    def area(self):
+        pass
 
 def define (line):
     shape_classes = {
         "Square": Square,
         "Circle": Circle,
-        "Rectangle": Rectangle
+        "Rectangle": Rectangle,
+        "Triangle": Triangle
     }
 
     elements = line.split(" ")

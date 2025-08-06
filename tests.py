@@ -1,5 +1,5 @@
 import unittest
-from test_task import Square, Circle, Rectangle, define
+from test_task import Square, Circle, Rectangle, Triangle, define
 
 
 class TestSquare(unittest.TestCase):
@@ -92,6 +92,30 @@ class TestDefine(unittest.TestCase):
         data = "Square TopRight 1 1 Side 5"
         figure = define(data)
         self.assertEqual(type(figure).__name__, "Square")
+
+class TestTriangle(unittest.TestCase):
+    def test_triangle_perimetr1(self):
+        data = ["Triangle", "Point1", "5", "5", "Point2", "8", "8", "Point3", "10", "2"]
+        triangle = Triangle.create(data)
+        triangle_perimetr = triangle.perimeter()
+        self.assertEqual(triangle_perimetr, 22)
+
+    def test_triangle_perimetr2(self):
+        data = ["Triangle", "Point1", "3", "5", "Point2", "8", "3", "Point3", "10", "2"]
+        triangle = Triangle.create(data)
+        triangle_perimetr = triangle.perimeter()
+        self.assertEqual(triangle_perimetr, 12)
+
+    def test_triangle_create(self):
+        data = ["Triangle", "Point1", "5", "6", "Point2", "7", "8", "Point3", "9", "10"]
+        triangle = Triangle.create(data)
+        self.assertEqual(triangle.x1_position, 5)
+        self.assertEqual(triangle.x2_position, 7)
+        self.assertEqual(triangle.x3_position, 9)
+        self.assertEqual(triangle.y1_position, 6)
+        self.assertEqual(triangle.y2_position, 8)
+        self.assertEqual(triangle.y3_position, 10)
+
 
 
 if __name__ == '__main__':
