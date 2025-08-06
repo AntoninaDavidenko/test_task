@@ -17,41 +17,6 @@ class Shape(ABC):
         pass
 
 
-class Square(Shape):
-    def __init__(self, x, y, side):
-        self.x_position = x
-        self.y_position = y
-        self.side = side
-
-    @classmethod
-    def create(cls, data_string):
-        x_position = None
-        y_position = None
-        side = None
-        j = 1
-        try:
-            while j < len(data_string):
-                if data_string[j] == 'TopRight':
-                    x_position = int(data_string[j+1])
-                    y_position = int(data_string[j+2])
-                    j += 3
-                elif data_string[j] == 'Side':
-                    side = int(data_string[j+1])
-                    if side <= 0:
-                        raise ValueError
-                    j += 2
-                else:
-                    raise ValueError
-            return cls(x_position, y_position, side)
-        except ValueError:
-            raise ValueError('Invalid data string')
-
-    def perimeter(self):
-        return self.side * 4
-
-    def area(self):
-        return self.side * self.side
-
 class Circle(Shape):
     def __init__(self, x, y, radius):
         self.x_position = x
@@ -119,11 +84,47 @@ class  Rectangle(Shape):
         except ValueError:
             raise ValueError('Invalid data string')
 
+
     def perimeter(self):
         return (self.width + self.height) * 2
 
     def area(self):
         return self.width * self.height
+
+
+class Square(Rectangle):
+    def __init__(self, x, y, side):
+
+        self.x_position = x
+        self.y_position = y
+        self.side = side
+        self.x2 = x + side
+        self.y2 = y + side
+        super().__init__(x, y, self.x2, self.y2)
+
+    @classmethod
+    def create(cls, data_string):
+        x_position = None
+        y_position = None
+        side = None
+        j = 1
+        try:
+            while j < len(data_string):
+                if data_string[j] == 'TopRight':
+                    x_position = int(data_string[j+1])
+                    y_position = int(data_string[j+2])
+                    j += 3
+                elif data_string[j] == 'Side':
+                    side = int(data_string[j+1])
+                    if side <= 0:
+                        raise ValueError
+                    j += 2
+                else:
+                    raise ValueError
+            return cls(x_position, y_position, side)
+        except ValueError:
+            raise ValueError('Invalid data string')
+
 
 def define (line):
     shape_classes = {
